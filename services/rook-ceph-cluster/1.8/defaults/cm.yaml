@@ -28,6 +28,7 @@ data:
     cephClusterSpec:
       dashboard:
         enabled: true
+        urlPrefix: /dkp/rook/dashboard/
         ssl: true
       storage:
         useAllNodes: true
