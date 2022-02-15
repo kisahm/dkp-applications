@@ -26,14 +26,66 @@ data:
           - ""
         tls: []
     cephBlockPools:
-      storageClass:
-        enabled: true
-        name: ceph-block
+      - name: ceph-blockpool
+        spec:
+          failureDomain: host
+          replicated:
+            size: 3
+        storageClass:
+          enabled: true
+          name: ceph-block
+          isDefault: false
+          reclaimPolicy: Delete
+          allowVolumeExpansion: true
+          parameters:
+            imageFormat: "2"
+            imageFeatures: layering
+            csi.storage.k8s.io/fstype: ext4
     cephFileSystems:
-      storageClass:
-        enabled: true
-        name: ceph-filesystem
-    cephObjectStorage:
+      - name: ceph-filesystem
+        spec:
+        metadataPool:
+          replicated:
+            size: 3
+        dataPools:
+          - failureDomain: host
+            replicated:
+                size: 3
+        metadataServer:
+          activeCount: 1
+          activeStandby: true
+        storageClass:
+          enabled: true
+          name: ceph-filesystem
+          isDefault: false
+          reclaimPolicy: Delete
+          allowVolumeExpansion: true
+          parameters:
+            csi.storage.k8s.io/fstype: ext4
+    cephObjectStores:
+    - name: ceph-objectstore
+      spec:
+        metadataPool:
+          failureDomain: host
+          replicated:
+            size: 3
+        dataPool:
+          failureDomain: host
+          erasureCoded:
+            dataChunks: 2
+            codingChunks: 1
+        preservePoolsOnDelete: true
+        gateway:
+          port: 80
+          # securePort: 443
+          # sslCertificateRef:
+          instances: 1
+        healthCheck:
+          bucket:
+            interval: 60s
       storageClass:
         enabled: true
         name: ceph-bucket
+        reclaimPolicy: Delete
+        parameters:
+          region: us-east-1
