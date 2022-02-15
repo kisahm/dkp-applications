@@ -25,6 +25,14 @@ data:
         hosts:
           - ""
         tls: []
+    cephClusterSpec:
+      dashboard:
+        enabled: true
+        ssl: true
+      storage:
+        useAllNodes: true
+        useAllDevices: true
+
     cephBlockPools:
       - name: ceph-blockpool
         spec:
