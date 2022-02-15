@@ -41,19 +41,20 @@ data:
             imageFormat: "2"
             imageFeatures: layering
             csi.storage.k8s.io/fstype: ext4
+
     cephFileSystems:
       - name: ceph-filesystem
         spec:
-        metadataPool:
-          replicated:
-            size: 3
-        dataPools:
-          - failureDomain: host
+          metadataPool:
             replicated:
-                size: 3
-        metadataServer:
-          activeCount: 1
-          activeStandby: true
+              size: 3
+          dataPools:
+            - failureDomain: host
+              replicated:
+                  size: 3
+          metadataServer:
+            activeCount: 1
+            activeStandby: true
         storageClass:
           enabled: true
           name: ceph-filesystem
