@@ -2,7 +2,7 @@ displayName: Rook Operator
 description: tbd
 category:
   - storage
-type: partner
+type: platform
 scope:
   - workspace
 certifications:
