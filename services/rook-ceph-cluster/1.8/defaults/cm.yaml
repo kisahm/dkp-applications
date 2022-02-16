@@ -21,14 +21,14 @@ data:
           traefik.ingress.kubernetes.io/router.tls: "true"
           traefik.ingress.kubernetes.io/router.middlewares: "${workspaceNamespace}-stripprefixes@kubernetescrd,${workspaceNamespace}-forwardauth@kubernetescrd"
         paths:
-          - "/dkp/rook/dashboard/"
+          - "/dkp/rook/dashboard"
         hosts:
           - ""
         tls: []
     cephClusterSpec:
       dashboard:
         enabled: true
-        urlPrefix: /dkp/rook/dashboard/
+        urlPrefix: /dkp/rook/dashboard
         ssl: true
       storage:
         useAllNodes: true

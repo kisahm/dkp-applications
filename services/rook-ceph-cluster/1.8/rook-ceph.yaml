@@ -39,3 +39,64 @@ spec:
     - kind: ConfigMap
       name: rook-ceph-cluster-1.8-d2iq-defaults
   targetNamespace: ${releaseNamespace}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "rook-ceph-cluster"
+  namespace: ${releaseNamespace}
+  labels:
+    "kommander.d2iq.io/application": "rook-ceph-cluster"
+data:
+  name: "Rook Ceph Cluster"
+  dashboardLink: "/dkp/rook/dashboard"
+  version: "1.8"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: rook-ceph-cluster-edit
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+rules:
+- nonResourceURLs:
+  - /dkp/rook/dashboard
+  - /dkp/rook/dashboard/*
+  verbs:
+  - get
+  - head
+  - post
+  - put
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: rook-ceph-cluster-admin
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+rules:
+- nonResourceURLs:
+  - /dkp/rook/dashboard
+  - /dkp/rook/dashboard/*
+  verbs:
+  - get
+  - head
+  - post
+  - put
+  - delete
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: rook-ceph-cluster-view
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+rules:
+- nonResourceURLs:
+  - /dkp/rook/dashboard
+  - /dkp/rook/dashboard/*
+  verbs:
+  - get
+  - head
