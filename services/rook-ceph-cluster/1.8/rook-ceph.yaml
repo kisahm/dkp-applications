@@ -51,6 +51,7 @@ data:
   name: "Rook Ceph Cluster"
   dashboardLink: "/dkp/rook/dashboard"
   version: "1.8"
+  category: "Storage"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
