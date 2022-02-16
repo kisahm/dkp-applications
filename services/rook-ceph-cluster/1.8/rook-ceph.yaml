@@ -49,7 +49,7 @@ metadata:
     "kommander.d2iq.io/application": "rook-ceph-cluster"
 data:
   name: "Rook Ceph Cluster"
-  dashboardLink: "/dkp/rook/dashboard"
+  dashboardLink: "/dkp/rook/dashboard/"
   version: "1.8"
   category: "Storage"
 ---
@@ -101,3 +101,25 @@ rules:
   verbs:
   - get
   - head
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+    kubernetes.io/ingress.class: kommander-traefik
+    traefik.ingress.kubernetes.io/router.middlewares: rook-test-stripprefixes@kubernetescrd,rook-test-forwardauth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  name: rook-ceph-dashboard
+  namespace: ${releaseNamespace}
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: rook-ceph-mgr-dashboard
+            port:
+              number: 8443
+        path: /dkp/rook/dashboard/
+        pathType: ImplementationSpecific
