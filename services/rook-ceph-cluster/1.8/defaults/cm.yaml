@@ -11,7 +11,7 @@ data:
     toolbox:
       enabled: true
     monitoring:
-      enabled: true
+      enabled: false
     ingress:
       dashboard: 
         className: ""
@@ -26,13 +26,18 @@ data:
           - ""
         tls: []
     cephClusterSpec:
+      dataDirHostPath: /var/lib/rook
+      mon:
+        count: 3
+        allowMultiplePerNode: false
+      storage:
+        useAllNodes: true
+        useAllDevices: true
+        onlyApplyOSDPlacement: false
       dashboard:
         enabled: true
         urlPrefix: /dkp/rook/dashboard
         ssl: true
-      storage:
-        useAllNodes: true
-        useAllDevices: true
 
     cephBlockPools:
       - name: ceph-blockpool
