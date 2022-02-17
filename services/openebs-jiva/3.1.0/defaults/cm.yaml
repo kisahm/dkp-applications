@@ -55,4 +55,4 @@ data:
       deviceClass:
         enabled: false
       hostpathClass:
-        basePath="/srv"
+        basePath: "/srv"
