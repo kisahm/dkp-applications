@@ -64,3 +64,12 @@ All worker nodes needs minimum one (1) empty, additional, non used block storage
 1. Deploy the "Rook Operator" to your workspace
 2. Deploy the "Rook Ceph Cluster" to your workspace
 3. Enjoy block, file and object storage
+
+### Access the dashboard
+To access the dashboard the password for the user "admin" is needed.
+During the cluster creation Rook creates a secret with the password
+
+#### How to get the password:
+```` 
+kubectl get secret -n ${WORKSPACE} rook-ceph-dashboard-password -o jsonpath='{.data.password}' | base64 -d
+````
