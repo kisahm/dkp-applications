@@ -1,0 +1,58 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openebs-jiva-3.1.0-d2iq-defaults
+  namespace: ${releaseNamespace}
+data:
+  values.yaml: |
+    ---
+    release:
+      version: "3.1.0"
+    openebsLocalpv:
+      enabled: true
+    rbac:
+      create: true
+      pspEnabled: false
+    csiController:
+      priorityClass:
+        create: true
+        name: jiva-csi-controller-critical
+        value: 900000000
+    csiNode:
+      priorityClass:
+        create: true
+        name: jiva-csi-node-critical
+        value: 900001000
+    serviceAccount:
+      annotations: {}
+      jivaOperator:
+        create: true
+        name: openebs-jiva-operator
+      csiController:
+        create: true
+        name: openebs-jiva-csi-controller-sa
+      csiNode:
+        create: true
+        name: openebs-jiva-csi-node-sa
+    defaultClass:
+      name: openebs-jiva-csi-default
+      enabled: true
+      reclaimPolicy: Delete
+      isDefaultClass: false
+      allowVolumeExpansion: true
+    defaultPolicy:
+      name: openebs-jiva-default-policy
+      enabled: true
+      replicaSC: openebs-hostpath
+      replicas: 3
+    analytics:
+      enabled: true
+      pingInterval: "24h"
+    localpv-provisioner:
+      openebsNDM:
+        enabled: false
+      deviceClass:
+        enabled: false
+      hostpathClass:
+        basePath="/srv"
