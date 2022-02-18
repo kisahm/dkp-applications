@@ -106,7 +106,7 @@ metadata:
   annotations:
     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
     kubernetes.io/ingress.class: kommander-traefik
-    traefik.ingress.kubernetes.io/router.middlewares: rook-test-stripprefixes@kubernetescrd,rook-test-forwardauth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: ${releaseNamespace}-stripprefixes@kubernetescrd,${releaseNamespace}-forwardauth@kubernetescrd
     traefik.ingress.kubernetes.io/router.tls: "false"
   name: chaosmesh-dashboard
   namespace: ${releaseNamespace}
