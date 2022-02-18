@@ -46,15 +46,6 @@ data:
         LISTEN_PORT: 2333
         METRIC_HOST: "0.0.0.0"
         METRIC_PORT: 2334
-      ingress:
-        annotations:
-          kubernetes.io/ingress.class: kommander-traefik
-          ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
-          traefik.ingress.kubernetes.io/router.tls: "true"
-          traefik.ingress.kubernetes.io/router.middlewares: "${workspaceNamespace}-stripprefixes@kubernetescrd,${workspaceNamespace}-forwardauth@kubernetescrd"
-        hosts:
-          - paths:
-              - "/dkp/chaosmesh/dashboard"
     dnsServer:
       create: false
     prometheus:
