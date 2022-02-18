@@ -106,7 +106,7 @@ metadata:
   annotations:
     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
     kubernetes.io/ingress.class: kommander-traefik
-    traefik.ingress.kubernetes.io/router.middlewares: ${releaseNamespace}-stripprefixes@kubernetescrd,${releaseNamespace}-forwardauth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: chaosmesh-stripprefix@kubernetescrd,${releaseNamespace}-forwardauth@kubernetescrd
     traefik.ingress.kubernetes.io/router.tls: "true"
   name: chaosmesh-dashboard
   namespace: ${releaseNamespace}
@@ -121,3 +121,14 @@ spec:
               number: 2333
         path: /dkp/chaosmesh/dashboard
         pathType: ImplementationSpecific
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: chaosmesh-stripprefix
+  namespace: ${releaseNamespace}
+spec:
+  stripPrefix:
+    prefixes:
+      - /dkp/chaosmesh/dashboard
+    forceSlash: true
