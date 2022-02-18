@@ -131,4 +131,3 @@ spec:
   stripPrefix:
     prefixes:
       - /dkp/chaosmesh/dashboard
-    forceSlash: true
