@@ -34,7 +34,7 @@ data:
       hostNetwork: false
       replicaCount: 1
       serviceAccount: chaos-controller-manager
-      securityMode: true
+      securityMode: false
       gcpSecurityMode: false
       service:
         type: ClusterIP
