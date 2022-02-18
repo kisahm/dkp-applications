@@ -25,7 +25,7 @@ spec:
         kind: HelmRepository
         name: charts.rook.io
         namespace: kommander-flux
-      version: "1.8"
+      version: "1.8.5"
   interval: 15s
   install:
     remediation:
@@ -37,5 +37,5 @@ spec:
   releaseName: rook-ceph
   valuesFrom:
     - kind: ConfigMap
-      name: rook-ceph-1.8-d2iq-defaults
+      name: rook-ceph-1.8.5-d2iq-defaults
   targetNamespace: ${releaseNamespace}
