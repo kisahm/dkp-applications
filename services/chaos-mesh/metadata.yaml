@@ -1,7 +1,7 @@
 displayName: Chaos Mesh
 description: A Powerful Chaos Engineering Platform for Kubernetes
 category:
-  - storage
+  - security
 type: platform
 scope:
   - workspace
