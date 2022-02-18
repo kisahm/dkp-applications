@@ -55,6 +55,8 @@ data:
         hosts:
           - paths:
               - "/dkp/chaosmesh/dashboard"
+              - "/"
+            tls: true
     dnsServer:
       create: false
     prometheus:
