@@ -39,3 +39,63 @@ spec:
     - kind: ConfigMap
       name: chaos-mesh-2.1.3-d2iq-defaults
   targetNamespace: ${releaseNamespace}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "chaosmesh-dashboard"
+  namespace: ${releaseNamespace}
+  labels:
+    "kommander.d2iq.io/application": "chaosmesh"
+data:
+  name: "Chaos Mesh"
+  dashboardLink: "/dkp/chaosmesh/dashboard"
+  version: "2.1.3"
+  category: "Security"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: chaosmesh-dashboard-edit
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+rules:
+- nonResourceURLs:
+  - /dkp/chaosmesh/dashboard
+  - /dkp/chaosmesh/dashboard/*
+  verbs:
+  - get
+  - head
+  - post
+  - put
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: chaosmesh-dashboard-admin
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+rules:
+- nonResourceURLs:
+  - /dkp/chaosmesh/dashboard
+  - /dkp/chaosmesh/dashboard/*
+  verbs:
+  - get
+  - head
+  - post
+  - put
+  - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: chaosmesh-dashboard-view
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+rules:
+- nonResourceURLs:
+  - /dkp/chaosmesh/dashboard
+  - /dkp/chaosmesh/dashboard/*
+  verbs:
+  - get
+  - head
