@@ -99,3 +99,25 @@ rules:
   verbs:
   - get
   - head
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+    kubernetes.io/ingress.class: kommander-traefik
+    traefik.ingress.kubernetes.io/router.middlewares: rook-test-stripprefixes@kubernetescrd,rook-test-forwardauth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  name: chaosmesh-dashboard
+  namespace: ${releaseNamespace}
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: chaos-dashboard
+            port:
+              number: 2333
+        path: /dkp/chaosmesh/dashboard/
+        pathType: ImplementationSpecific
