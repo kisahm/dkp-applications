@@ -55,9 +55,6 @@ data:
         hosts:
           - paths:
               - "/dkp/chaosmesh/dashboard"
-              - "/"
-            tls: true
-            tlsSecret: chaos-mesh-webhook-certs
     dnsServer:
       create: false
     prometheus:
