@@ -107,7 +107,7 @@ metadata:
     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
     kubernetes.io/ingress.class: kommander-traefik
     traefik.ingress.kubernetes.io/router.middlewares: rook-test-stripprefixes@kubernetescrd,rook-test-forwardauth@kubernetescrd
-    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls: "false"
   name: chaosmesh-dashboard
   namespace: ${releaseNamespace}
 spec:
@@ -119,5 +119,5 @@ spec:
             name: chaos-dashboard
             port:
               number: 2333
-        path: /dkp/chaosmesh/dashboard/
+        path: /dkp/chaosmesh/dashboard
         pathType: ImplementationSpecific
