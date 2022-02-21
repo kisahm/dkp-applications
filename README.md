@@ -74,3 +74,9 @@ During the cluster creation Rook creates a secret with the password
 ```` 
 kubectl get secret -n ${WORKSPACE} rook-ceph-dashboard-password -o jsonpath='{.data.password}' | base64 -d
 ````
+
+## Chaos Mesh
+
+### Dashboard
+Currently the dashboard will not work because the Chaos Mesh dashboard is not able to run in a sub path.
+There is an open issue: https://github.com/chaos-mesh/chaos-mesh/issues/2697
