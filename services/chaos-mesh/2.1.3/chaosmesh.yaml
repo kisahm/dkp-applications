@@ -5,27 +5,27 @@ metadata:
   labels:
     kustomize.toolkit.fluxcd.io/name: management
     kustomize.toolkit.fluxcd.io/namespace: kommander-flux
-  name: charts.rook.io
+  name: charts.chaos-mesh.org
   namespace: kommander-flux
 spec:
   interval: 10m
   timeout: 1m
-  url: https://charts.rook.io/release
+  url: https://charts.chaos-mesh.org
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: rook-ceph-cluster
+  name: chaos-mesh
   namespace: ${releaseNamespace}
 spec:
   chart:
     spec:
-      chart: rook-ceph-cluster
+      chart: chaos-mesh
       sourceRef:
         kind: HelmRepository
-        name: charts.rook.io
+        name: charts.chaos-mesh.org
         namespace: kommander-flux
-      version: "1.8"
+      version: "2.1.3"
   interval: 15s
   install:
     remediation:
@@ -34,70 +34,68 @@ spec:
   upgrade:
     remediation:
       retries: 30
-  releaseName: rook-ceph-cluster
+  releaseName: chaos-mesh
   valuesFrom:
     - kind: ConfigMap
-      name: rook-ceph-cluster-1.8-d2iq-defaults
+      name: chaos-mesh-2.1.3-d2iq-defaults
   targetNamespace: ${releaseNamespace}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: "rook-ceph-cluster"
+  name: "chaosmesh-dashboard"
   namespace: ${releaseNamespace}
   labels:
-    "kommander.d2iq.io/application": "rook-ceph-cluster"
+    "kommander.d2iq.io/application": "chaosmesh"
 data:
-  name: "Rook Ceph Cluster"
-  dashboardLink: "/dkp/rook/dashboard/"
-  version: "1.8"
-  category: "Storage"
+  name: "Chaos Mesh"
+  dashboardLink: "/dkp/chaosmesh/dashboard"
+  version: "2.1.3"
+  category: "Security"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: rook-ceph-cluster-edit
+  name: chaosmesh-dashboard-edit
   labels:
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
 rules:
 - nonResourceURLs:
-  - /dkp/rook/dashboard
-  - /dkp/rook/dashboard/*
+  - /dkp/chaosmesh/dashboard
+  - /dkp/chaosmesh/dashboard/*
   verbs:
   - get
   - head
   - post
   - put
-
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: rook-ceph-cluster-admin
+  name: chaosmesh-dashboard-admin
   labels:
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
 rules:
 - nonResourceURLs:
-  - /dkp/rook/dashboard
-  - /dkp/rook/dashboard/*
+  - /dkp/chaosmesh/dashboard
+  - /dkp/chaosmesh/dashboard/*
   verbs:
   - get
   - head
   - post
   - put
   - delete
-
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: rook-ceph-cluster-view
+  name: chaosmesh-dashboard-view
   labels:
     rbac.authorization.k8s.io/aggregate-to-view: "true"
 rules:
 - nonResourceURLs:
-  - /dkp/rook/dashboard
-  - /dkp/rook/dashboard/*
+  - /dkp/chaosmesh/dashboard
+  - /dkp/chaosmesh/dashboard/*
   verbs:
   - get
   - head
@@ -108,9 +106,9 @@ metadata:
   annotations:
     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
     kubernetes.io/ingress.class: kommander-traefik
-    traefik.ingress.kubernetes.io/router.middlewares: rook-test-stripprefixes@kubernetescrd,rook-test-forwardauth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: ${releaseNamespace}-stripprefix@kubernetescrd,${releaseNamespace}-forwardauth@kubernetescrd
     traefik.ingress.kubernetes.io/router.tls: "true"
-  name: rook-ceph-dashboard
+  name: chaosmesh-dashboard
   namespace: ${releaseNamespace}
 spec:
   rules:
@@ -118,8 +116,8 @@ spec:
       paths:
       - backend:
           service:
-            name: rook-ceph-mgr-dashboard
+            name: chaos-dashboard
             port:
-              number: 8443
-        path: /dkp/rook/dashboard/
+              number: 2333
+        path: /dkp/chaosmesh/dashboard
         pathType: ImplementationSpecific
