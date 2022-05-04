@@ -72,7 +72,7 @@ During the cluster creation Rook creates a secret with the password
 
 #### How to get the password:
 ```` 
-kubectl get secret -n ${WORKSPACE} rook-ceph-dashboard-password -o jsonpath='{.data.password}' | base64 -d
+kubectl get secret -n ${WORKSPACE_NAMESPACE} rook-ceph-dashboard-password -o jsonpath='{.data.password}' | base64 -d && echo
 ````
 
 ## Chaos Mesh
