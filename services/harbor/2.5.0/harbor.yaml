@@ -46,10 +46,10 @@ metadata:
   name: "harbor"
   namespace: ${releaseNamespace}
   labels:
-    "kommander.d2iq.io/application": "harbor"
+    "kommander.d2iq.io/application": "Harbor"
 data:
   name: "Harbor"
-  dashboardLink: "/dkp/harbor/dashboard/"
+  dashboardLink: "/"
   version: "2.5.0"
   category: "tools"
 ---
@@ -61,8 +61,8 @@ metadata:
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
 rules:
 - nonResourceURLs:
-  - /dkp/harbor/dashboard
-  - /dkp/harbor/dashboard/*
+  - /
+  - /*
   verbs:
   - get
   - head
@@ -78,8 +78,8 @@ metadata:
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
 rules:
 - nonResourceURLs:
-  - /dkp/harbor/dashboard
-  - /dkp/harbor/dashboard/*
+  - /
+  - /*
   verbs:
   - get
   - head
@@ -96,8 +96,8 @@ metadata:
     rbac.authorization.k8s.io/aggregate-to-view: "true"
 rules:
 - nonResourceURLs:
-  - /dkp/harbor/dashboard
-  - /dkp/harbor/dashboard/*
+  - /
+  - /*
   verbs:
   - get
   - head
@@ -121,5 +121,5 @@ spec:
             name: harbor-portal
             port:
               number: 80
-        path: /dkp/harbor/dashboard
+        path: /
         pathType: ImplementationSpecific

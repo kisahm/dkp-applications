@@ -19,5 +19,5 @@ data:
           traefik.ingress.kubernetes.io/router.tls: "true"
           traefik.ingress.kubernetes.io/router.middlewares: "${workspaceNamespace}-stripprefixes@kubernetescrd,${workspaceNamespace}-forwardauth@kubernetescrd"
         paths:
-          - "/dkp/harbor/dashboard"
+          - "/"
     externalURL: ""
