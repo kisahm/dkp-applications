@@ -118,8 +118,8 @@ spec:
       paths:
       - backend:
           service:
-            name: harbor
+            name: harbor-portal
             port:
-              number: 8443
+              number: 80
         path: /dkp/harbor/dashboard
         pathType: ImplementationSpecific
