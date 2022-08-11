@@ -1,5 +1,5 @@
 displayName: Harbor
-description: Harbor is an open source registry that secures artifacts with policies and role-based access control, ensures images are scanned and free from vulnerabilities, and signs images as trusted. Harbor, a CNCF Graduated project, delivers compliance, performance, and interoperability to help you consistently and securely manage artifacts across cloud native compute platforms like Kubernetes and Docker.
+description: An open-source trusted cloud native registry project that stores, signs, and scans content
 category:
   - tools
 type: platform
@@ -10,8 +10,8 @@ certifications:
   - airgapped
 overview: |-
   # Overview
-  An open-source trusted cloud native registry project that stores, signs, and scans content
-
+  Harbor is an open source registry that secures artifacts with policies and role-based access control, ensures images are scanned and free from vulnerabilities, and signs images as trusted. Harbor, a CNCF Graduated project, delivers compliance, performance, and interoperability to help you consistently and securely manage artifacts across cloud native compute platforms like Kubernetes and Docker.
+  
   ## What is Harbor
   Harbor is an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing.
   
@@ -29,8 +29,8 @@ overview: |-
   * Graphical user portal: User can easily browse, search repositories and manage projects.
   * Auditing: All the operations to the repositories are tracked through logs.
   * RESTful API: RESTful APIs are provided to facilitate administrative operations, and are easy to use for integration with external systems. An embedded * Swagger UI is available for exploring and testing the API.
-Easy deployment: Harbor can be deployed via Docker compose as well Helm Chart, and a Harbor Operator was added recently as well.
-
+  * Easy deployment: Harbor can be deployed via Docker compose as well Helm Chart, and a Harbor Operator was added recently as well.
+  
   ## More Information
   - [goharbor.io](https://goharbor.io/)
   - [Docs](https://goharbor.io/docs/)
