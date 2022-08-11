@@ -6,7 +6,7 @@ metadata:
     kustomize.toolkit.fluxcd.io/name: management
     kustomize.toolkit.fluxcd.io/namespace: kommander-flux
   name: helm.goharbor.io
-  namespace: kommander-flux
+  namespace: ${releaseNamespace}
 spec:
   interval: 10m
   timeout: 1m
