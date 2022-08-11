@@ -51,7 +51,7 @@ data:
   name: "Harbor"
   dashboardLink: "/dkp/harbor/dashboard/"
   version: "2.5.0"
-  category: "DevOps"
+  category: "tools"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
