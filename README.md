@@ -1,7 +1,8 @@
 # DKP Application
 
 ## Included applications:
-* Chaos Mesh
+* Chaos Mesh (wip)
+* Harbor (wip)
 * Rook Operator
 * Rook Ceph Cluster
 
