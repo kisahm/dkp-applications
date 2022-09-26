@@ -13,6 +13,7 @@ data:
       port: 80
       type: ClusterIP
     config:
+      secretKey: randomkey
       multicluster:
         enabled: false
       oidc:
