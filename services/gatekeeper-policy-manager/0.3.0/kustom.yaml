@@ -25,7 +25,7 @@ spec:
         kind: HelmRepository
         name: gatekeeper-policy-manager
         namespace: kommander-flux
-      version: "1.0.1"
+      version: "0.3.0"
   interval: 15s
   install:
     remediation:
@@ -37,7 +37,7 @@ spec:
   releaseName: gatekeeper-policy-manager
   valuesFrom:
     - kind: ConfigMap
-      name: gatekeeper-policy-manager-1.0.1-d2iq-defaults
+      name: gatekeeper-policy-manager-0.3.0-d2iq-defaults
   targetNamespace: ${releaseNamespace}
 ---
 apiVersion: v1
@@ -50,7 +50,7 @@ metadata:
 data:
   name: "Gatekeeper Policy Manager"
   dashboardLink: "/dkp/gatekeeper-policy-manager/dashboard"
-  version: "1.0.1"
+  version: "0.3.0"
   category: "Security"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
