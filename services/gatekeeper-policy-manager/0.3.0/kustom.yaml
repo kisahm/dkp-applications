@@ -106,7 +106,7 @@ metadata:
   annotations:
     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
     kubernetes.io/ingress.class: kommander-traefik
-    traefik.ingress.kubernetes.io/router.middlewares: stripprefixes@kubernetescrd,forwardauth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: ${releaseNamespace}-stripprefixes@kubernetescrd,${releaseNamespace}-forwardauth@kubernetescrd
     traefik.ingress.kubernetes.io/router.tls: "true"
   name: gpm-dashboard
   namespace: ${releaseNamespace}
