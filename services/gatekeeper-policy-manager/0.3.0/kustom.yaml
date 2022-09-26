@@ -10,7 +10,7 @@ metadata:
 spec:
   interval: 10m
   timeout: 1m
-  url: https://sighupio.github.io/gatekeeper-policy-manager
+  url: https://sighupio.github.io/gatekeeper-policy-manager/
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -106,7 +106,7 @@ metadata:
   annotations:
     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
     kubernetes.io/ingress.class: kommander-traefik
-    traefik.ingress.kubernetes.io/router.middlewares: ${releaseNamespace}-stripprefix@kubernetescrd,${releaseNamespace}-forwardauth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: stripprefixes@kubernetescrd,forwardauth@kubernetescrd
     traefik.ingress.kubernetes.io/router.tls: "true"
   name: gpm-dashboard
   namespace: ${releaseNamespace}
