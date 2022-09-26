@@ -7,15 +7,15 @@ metadata:
 data:
   values.yaml: |
     ---
-  ingress:
-    enabled: false
-  service:
-    port: 80
-    type: ClusterIP
-  config:
-    multicluster:
+    ingress:
       enabled: false
-    oidc:
-      enabled: false
-  rbac:
-    create: true
+    service:
+      port: 80
+      type: ClusterIP
+    config:
+      multicluster:
+        enabled: false
+      oidc:
+        enabled: false
+    rbac:
+      create: true
