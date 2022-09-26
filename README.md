@@ -4,6 +4,7 @@
 * Chaos Mesh
 * Rook Operator
 * Rook Ceph Cluster
+* Gatekeeper Policy Manager
 
 ## How to deploy this bundle
 

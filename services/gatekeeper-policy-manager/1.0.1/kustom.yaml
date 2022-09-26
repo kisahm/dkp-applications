@@ -1,0 +1,123 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  labels:
+    kustomize.toolkit.fluxcd.io/name: management
+    kustomize.toolkit.fluxcd.io/namespace: kommander-flux
+  name: gatekeeper-policy-manager
+  namespace: kommander-flux
+spec:
+  interval: 10m
+  timeout: 1m
+  url: https://sighupio.github.io/gatekeeper-policy-manager
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gatekeeper-policy-manager
+  namespace: ${releaseNamespace}
+spec:
+  chart:
+    spec:
+      chart: gatekeeper-policy-manager
+      sourceRef:
+        kind: HelmRepository
+        name: gatekeeper-policy-manager
+        namespace: kommander-flux
+      version: "1.0.1"
+  interval: 15s
+  install:
+    remediation:
+      retries: 30
+    createNamespace: true
+  upgrade:
+    remediation:
+      retries: 30
+  releaseName: gatekeeper-policy-manager
+  valuesFrom:
+    - kind: ConfigMap
+      name: gatekeeper-policy-manager-1.0.1-d2iq-defaults
+  targetNamespace: ${releaseNamespace}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "gpm-dashboard"
+  namespace: ${releaseNamespace}
+  labels:
+    "kommander.d2iq.io/application": "gatekeeper-policy-manager"
+data:
+  name: "Gatekeeper Policy Manager"
+  dashboardLink: "/dkp/gatekeeper-policy-manager/dashboard"
+  version: "1.0.1"
+  category: "Security"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: gpm-dashboard-edit
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+rules:
+- nonResourceURLs:
+  - /dkp/gatekeeper-policy-manager/dashboard
+  - /dkp/gatekeeper-policy-manager/dashboard/*
+  verbs:
+  - get
+  - head
+  - post
+  - put
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: gpm-dashboard-admin
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+rules:
+- nonResourceURLs:
+  - /dkp/gatekeeper-policy-manager/dashboard
+  - /dkp/gatekeeper-policy-manager/dashboard/*
+  verbs:
+  - get
+  - head
+  - post
+  - put
+  - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: gpm-dashboard-view
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+rules:
+- nonResourceURLs:
+  - /dkp/gatekeeper-policy-manager/dashboard
+  - /dkp/gatekeeper-policy-manager/dashboard/*
+  verbs:
+  - get
+  - head
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+    kubernetes.io/ingress.class: kommander-traefik
+    traefik.ingress.kubernetes.io/router.middlewares: ${releaseNamespace}-stripprefix@kubernetescrd,${releaseNamespace}-forwardauth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  name: gpm-dashboard
+  namespace: ${releaseNamespace}
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: gatekeeper-policy-manager
+            port:
+              number: 80
+        path: /dkp/gatekeeper-policy-manager/dashboard
+        pathType: ImplementationSpecific
