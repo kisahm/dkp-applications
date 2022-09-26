@@ -49,7 +49,7 @@ metadata:
     "kommander.d2iq.io/application": "gatekeeper-policy-manager"
 data:
   name: "Gatekeeper Policy Manager"
-  dashboardLink: "/dkp/gatekeeper-policy-manager/dashboard"
+  dashboardLink: "/"
   version: "0.3.0"
   category: "Security"
 ---
@@ -61,8 +61,14 @@ metadata:
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
 rules:
 - nonResourceURLs:
-  - /dkp/gatekeeper-policy-manager/dashboard
-  - /dkp/gatekeeper-policy-manager/dashboard/*
+  - /constraints
+  - /constrainttemplates
+  - /configurations
+  - /api
+  - /constraints/*
+  - /constrainttemplates/*
+  - /configurations/*
+  - /api/*
   verbs:
   - get
   - head
@@ -77,8 +83,14 @@ metadata:
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
 rules:
 - nonResourceURLs:
-  - /dkp/gatekeeper-policy-manager/dashboard
-  - /dkp/gatekeeper-policy-manager/dashboard/*
+  - /constraints
+  - /constrainttemplates
+  - /configurations
+  - /api
+  - /constraints/*
+  - /constrainttemplates/*
+  - /configurations/*
+  - /api/*
   verbs:
   - get
   - head
@@ -94,8 +106,14 @@ metadata:
     rbac.authorization.k8s.io/aggregate-to-view: "true"
 rules:
 - nonResourceURLs:
-  - /dkp/gatekeeper-policy-manager/dashboard
-  - /dkp/gatekeeper-policy-manager/dashboard/*
+  - /constraints
+  - /constrainttemplates
+  - /configurations
+  - /api
+  - /constraints/*
+  - /constrainttemplates/*
+  - /configurations/*
+  - /api/*
   verbs:
   - get
   - head
