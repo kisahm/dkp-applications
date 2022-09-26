@@ -119,5 +119,7 @@ spec:
             name: gatekeeper-policy-manager
             port:
               number: 80
-        path: /dkp/gatekeeper-policy-manager/dashboard
+        # GPM is not able to run as sub path: https://github.com/sighupio/gatekeeper-policy-manager/issues/452
+        #path: /dkp/gatekeeper-policy-manager/dashboard
+        path: /
         pathType: ImplementationSpecific
